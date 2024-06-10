@@ -1,0 +1,42 @@
+Part 1: The File Store
+We'd like you to write a simple file store service (HTTP server and a command line client)
+that stores plain-text files in a programming language of your choice. You are free to
+implement the server and the client in different languages. The server would receive
+requests from clients to store, update, delete files, and perform operations on files stored in
+the server.
+
+Below are the list of operations the file store should support.
+1. Add files to the store.
+E.g: store add file1.txt file2.txt should send both files - file1.txt
+and file2.txt in the current path to the file store. Add command should fail if the
+file already exists in the server.
+Bonus:
+- Can you optimise so that a client does not have to send a file if its content is
+already in the server? e.g. Say file.txt and dup.txt has the same
+content and store already has file.txt, is possible for store add
+dup.txt to add a new file dup.txt without having to send its contents
+- handle n/w interruptions when sending large files
+
+2. List files in the store
+e.g. store ls should list the files in the store
+
+3. Remove a file:
+E.g: store rm file.txt should remove file.txt from store
+
+4. Update contents of a file in the store:
+E.g: store update file.txt should update contents of file.txt in
+server with the local file.txt or create a new file.txt in server if it is
+absent.
+Bonus: can you skip sending the contents of the file if the server already has it?
+
+5. Support the following operations on files
+a. word count: store wc returns the number of words in all the files stored
+in server
+b. Least or most frequent words:
+store freq-words [--limit|-n 10] [--order=dsc|asc]
+e.g. store freq-words should return the 10 most frequent words in
+all the files combined. This should work the same as running the following
+shell command:
+cat * | tr -s ' ' '\n' | sort | uniq -c | sort -n |
+tail -n 10
+Bonus points for optimising to run fast/in parallel

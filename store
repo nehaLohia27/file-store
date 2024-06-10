@@ -1,0 +1,71 @@
+#!/usr/bin/env python
+
+import argparse
+import requests
+
+SERVER_URL = "http://localhost:8080"
+
+def add_file(file_paths):
+    files = [("file", (file_path, open(file_path, "rb"))) for file_path in file_paths]
+    response = requests.post(f"{SERVER_URL}/store/add", files=files)
+    print(response.text)
+
+def list_files():
+    response = requests.get(f"{SERVER_URL}/store/ls")
+    print(response.text)
+
+def remove_file(file_name):
+    response = requests.delete(f"{SERVER_URL}/store/rm?file={file_name}")
+    print(response.text)
+
+def update_file(file_path):
+    with open(file_path, "rb") as file:
+        response = requests.put(f"{SERVER_URL}/store/update?file={file_path}", files={"file": file})
+        print(response.text)
+
+def word_count():
+    response = requests.get(f"{SERVER_URL}/store/wc")
+    print(response.text)
+
+def frequent_words(limit=10, order="asc"):
+    response = requests.get(f"{SERVER_URL}/store/freq-words?limit={limit}&order={order}")
+    print(response.text)
+
+def main():
+    parser = argparse.ArgumentParser(description="File Store Client")
+    subparsers = parser.add_subparsers(dest="command", help="Available commands")
+
+    add_parser = subparsers.add_parser("add", help="Add file(s) to the storage")
+    add_parser.add_argument("file_paths", nargs="+", help="Path to the file(s) to be added")
+
+    list_parser = subparsers.add_parser("ls", help="List files in the storage")
+
+    remove_parser = subparsers.add_parser("rm", help="Remove file from the storage")
+    remove_parser.add_argument("file_name", help="Name of the file to be removed")
+
+    update_parser = subparsers.add_parser("update", help="Update file in the storage")
+    update_parser.add_argument("file_path", help="Path to the file to be updated")
+
+    wc_parser = subparsers.add_parser("wc", help="Count words in all files")
+    
+    freq_words_parser = subparsers.add_parser("freq-words", help="List most frequent words")
+    freq_words_parser.add_argument("--limit", type=int, default=10, help="Limit for frequent words")
+    freq_words_parser.add_argument("--order", choices=["asc", "desc"], default="asc", help="Order for frequent words")
+
+    args = parser.parse_args()
+
+    if args.command == "add":
+        add_file(args.file_paths)
+    elif args.command == "ls":
+        list_files()
+    elif args.command == "rm":
+        remove_file(args.file_name)
+    elif args.command == "update":
+        update_file(args.file_path)
+    elif args.command == "wc":
+        word_count()
+    elif args.command == "freq-words":
+        frequent_words(args.limit, args.order)
+
+if __name__ == "__main__":
+    main()
