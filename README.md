@@ -16,7 +16,7 @@ This is a simple Go HTTP server that provides endpoints for storing, listing, re
 # Endpoints:
 
 1. Add File
-**POST /store/add
+POST /store/add
 
 - Add one or more files to the server's storage. Each file should be sent as a multipart form data with the key "file". Files are stored in the uploads/ directory.
 
@@ -41,7 +41,7 @@ GET /store/wc
 - Count the total number of words across all uploaded files.
 
 6. Frequent Words
-GET /store/freq-words?limit=<limit>&order=<asc|desc>
+## GET /store/freq-words?limit=<limit>&order=<asc|desc>
 
 - List the most frequent words in uploaded files. You can specify the limit and order of the results.
 
@@ -49,22 +49,22 @@ GET /store/freq-words?limit=<limit>&order=<asc|desc>
 # Usage Example: 
 
 1. Add a file:
-./store add file1.txt
+- ./store add file1.txt
 
 2. Update the file 
-./store update file1.txt
+- ./store update file1.txt
 
 3. list the files
-./store ls
+- ./store ls
 
 4. Remove a file 
-./store rm file1.txt
+- ./store rm file1.txt
 
 5. Count the total words in a file
-./store wc
+- ./store wc
 
 6. Print the most frequent words
-./store freq-words
+- ./store freq-words
 
 
 
