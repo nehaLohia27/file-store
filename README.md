@@ -16,7 +16,7 @@ This is a simple Go HTTP server that provides endpoints for storing, listing, re
 # Endpoints:
 
 1. Add File
-POST /store/add
+**POST /store/add
 
 - Add one or more files to the server's storage. Each file should be sent as a multipart form data with the key "file". Files are stored in the uploads/ directory.
 
