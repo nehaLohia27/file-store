@@ -5,10 +5,10 @@ This is a simple Go HTTP server that provides endpoints for storing, listing, re
 
 # Setup:-
 1. Clone this repository:
-git clone https://github.com/nehaLohia27/file-store.git
+- **git clone https://github.com/nehaLohia27/file-store.git
 
 2. Navigate to repository
-cd file-store
+- **cd file-store
 
 3. Run the server.go
 go run server.go
