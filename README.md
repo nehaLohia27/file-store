@@ -41,7 +41,7 @@ GET /store/wc
 - Count the total number of words across all uploaded files.
 
 6. Frequent Words
-## GET /store/freq-words?limit=<limit>&order=<asc|desc>
+GET /store/freq-words?limit=<limit>&order=<asc|desc>
 
 - List the most frequent words in uploaded files. You can specify the limit and order of the results.
 
